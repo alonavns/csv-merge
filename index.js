@@ -8,7 +8,10 @@ const idx_sku = 4;
 
 var saveFile = (data, type = 'json') => {
   let fn = (new Date()).getTime() + '.' + type;
-  fs.writeFile('./save/' + fn, data, function (err) {
+  if (!fs.existsSync('save')){
+    fs.mkdirSync('save');
+  }
+  fs.writeFile('save/' + fn, data, function (err) {
     if (err) throw err;
     console.log('File saved - to save/' + fn);
   });
@@ -129,7 +132,7 @@ var leadingZero = (num, size = 2) => {
 exports.mergeCSVs = (files) => {
   let fileData = [];
   for (let i = 0; i < files.length; i++) {
-    let filename = './csv_data/' + files[i];
+    let filename = files[i];
     console.log(filename);
     readCSV(filename, (data) => {
       fileData.push(data);
@@ -141,10 +144,13 @@ exports.mergeCSVs = (files) => {
 }
 
 var filenames = [
-  'DE_2014JunMonthlyTransaction.csv',
-  'ES_2014JunMonthlyTransaction.csv',
-  'FR_2014JunMonthlyTransaction.csv',
-  'IT_2014JunMonthlyTransaction.csv',
-  'UK_2014JunMonthlyTransaction.csv'
+  'csv_data/DE_2014JunMonthlyTransaction.csv',
+  'csv_data/ES_2014JunMonthlyTransaction.csv',
+  'csv_data/FR_2014JunMonthlyTransaction.csv',
+  'csv_data/IT_2014JunMonthlyTransaction.csv',
+  'csv_data/UK_2014JunMonthlyTransaction.csv'
 ];
-// mergeCSVs(filenames);
+
+exports.test = () => {
+  mergeCSVs(filenames);
+}
