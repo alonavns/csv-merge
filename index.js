@@ -129,7 +129,7 @@ var leadingZero = (num, size = 2) => {
   return s.substr(s.length - size);
 }
 
-exports.mergeCSVs = (files) => {
+var mergeCSVs = (files) => {
   let fileData = [];
   for (let i = 0; i < files.length; i++) {
     let filename = files[i];
@@ -151,6 +151,9 @@ var filenames = [
   'csv_data/UK_2014JunMonthlyTransaction.csv'
 ];
 
-exports.test = () => {
+var test = () => {
   mergeCSVs(filenames);
 }
+
+exports.mergeCSVs = mergeCSVs;
+exports.test = test;
